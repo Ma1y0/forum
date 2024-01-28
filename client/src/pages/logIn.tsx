@@ -1,6 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useUser } from "../lib/user";
 
 export default function LogInPage() {
+  const { logIn } = useUser();
+
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const onFormChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -14,12 +17,13 @@ export default function LogInPage() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://127.0.0.1:8080/user/login", {
+      const res = await fetch("http://localhost:8080/user/login", {
         method: "POST",
+        credentials: "include",
         body: JSON.stringify(formData),
       });
 
-      console.log(await res.json());
+      logIn(await res.json());
     } catch (e) {
       console.log(e);
     }
