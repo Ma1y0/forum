@@ -1,13 +1,15 @@
-import cors from "@elysiajs/cors";
-import { Elysia } from "elysia";
-import { userLogin } from "./routes/user/login";
+import express from "express";
+import { questionRouter } from "./routes/question/router";
+import { DB } from "./db/db";
 
-const app = new Elysia()
-  .use(cors())
-  .get("/", () => "Hello Elysia")
-  .group("/user", (app) => app.post("/login", userLogin))
-  .listen(8080);
+export const db = new DB();
 
-console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,
-);
+const app = express();
+
+app.use(express.json());
+
+app.use("/question", questionRouter);
+
+app.post("/a", (req, res) => res.json({ message: "LLL" }));
+
+app.listen(8080, () => console.log("Listening on port :8080"));
