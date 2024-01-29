@@ -5,9 +5,9 @@ import { Link } from "wouter";
 export default function NavBar() {
   const { user, update } = useUser();
 
-  useEffect(() => {
-    update();
-  }, []);
+  // useEffect(() => {
+  //   update();
+  // }, []);
 
   return (
     <header>
