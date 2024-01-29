@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { db } from "../..";
+import { generateJwt } from "./jwt";
 
 const router = Router();
 
@@ -13,6 +14,12 @@ router.post("/rgiter", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const user = await db.registerUser(req.body);
+
+  const token = generateJwt(user.id!);
+
+  res.cookie("jwt", token, {
+    httpOnly: true,
+  });
 
   return {
     user: user,
