@@ -4,7 +4,8 @@ import { generateJwt } from "./jwt";
 
 const router = Router();
 
-router.post("/rgiter", async (req, res) => {
+router.post("/register", async (req, res) => {
+  console.log(req.body);
   const user = await db.registerUser(req.body);
 
   return {
